@@ -1,0 +1,54 @@
+<template>
+  <div class="packet" :style="{ backgroundColor: backgroundColor }">
+    <div class="des1"> 
+      <p>{{ description }}</p>    
+      <ButtonCom :buttonText="buttonText" :backgroundColor="buttonColor" />
+    </div>
+    
+    <img :src="imageSrc" class="image" />
+  </div>
+</template>
+
+<script setup>
+import ButtonCom from './buttonCom.vue';
+
+const props = defineProps({
+  description: String,
+  imageSrc: String,
+  buttonText: String,
+  backgroundColor: String,
+  buttonColor: String,
+});
+</script>
+<style scoped>
+.packet { 
+  height: 300px;
+  width: 440px;
+  border-radius: 20px;
+  margin-left: 10px;
+  display: flex;
+  margin-top: 10px;
+  align-items: center;  
+}
+
+.des1 {
+   
+  padding: 20px;
+}
+
+p {   
+  font-size: 1.2em;  
+  font-weight: bold;  
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+   
+}
+
+.image {
+  width: auto;  
+  height: 65%;
+  margin-top: 10px; 
+  margin-left: auto;  
+}
+</style>
+
