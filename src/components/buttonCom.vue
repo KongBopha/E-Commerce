@@ -10,6 +10,7 @@ const props = defineProps({
   buttonText: String,
   backgroundColor: String,
 });
+
 </script>
 
 <style scoped>

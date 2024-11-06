@@ -18,31 +18,31 @@ import strawImage from '@/assets/straw.png';
 import oganicImage from '@/assets/oganic.png';
 
 const categories = [
-  { name: 'Coke & Milk', amount: '14 items', imageSrc: hamImage },
-  { name: 'Peach', amount: '17 items', imageSrc: peachImage },
-  { name: 'Organic Kiwi', amount: '21 items', imageSrc: kiwiImage },
-  { name: 'Red Apple', amount: '68 items', imageSrc: appleImage },
-  { name: 'Snack', amount: '34 items', imageSrc: snackImage },
-  { name: 'Black Plum', amount: '25 items', imageSrc: plumImage },
-  { name: 'Vegetables', amount: '65 items', imageSrc: tomatoImage },
-  { name: 'Headphones', amount: '33 items', imageSrc: headphonesImage },
-  { name: 'Cake & Milk', amount: '54 items', imageSrc: coffeeImage },
-  { name: 'Orange', amount: '63 items', imageSrc: orangeImage },
+  { name: 'Coke & Milk', productCount: '14 items', imageSrc: hamImage },
+  { name: 'Peach', productCount: '17 items', imageSrc: peachImage },
+  { name: 'Organic Kiwi', productCount: '21 items', imageSrc: kiwiImage },
+  { name: 'Red Apple', productCount: '68 items', imageSrc: appleImage },
+  { name: 'Snack', productCount: '34 items', imageSrc: snackImage },
+  { name: 'Black Plum', productCount: '25 items', imageSrc: plumImage },
+  { name: 'Vegetables', productCount: '65 items', imageSrc: tomatoImage },
+  { name: 'Headphones', productCount: '33 items', imageSrc: headphonesImage },
+  { name: 'Cake & Milk', productCount: '54 items', imageSrc: coffeeImage },
+  { name: 'Orange', productCount: '63 items', imageSrc: orangeImage },
 ];
 
 const promotions = [
   {
-    description: "Everyday Fresh & Clean with Our Products",
+    title: "Everyday Fresh & Clean with Our Products",
     btnText: "Show Now",
     imageSrc: onionImage,
   },
   {
-    description: "Make your Breakfast Healthy and Easy",
+    title: "Make your Breakfast Healthy and Easy",
     btnText: "Show Now",
     imageSrc: strawImage,
   },
   {
-    description: "The best Organic Products Online",
+    title: "The best Organic Products Online",
     btnText: "Show Now",
     imageSrc: oganicImage,
   },
@@ -63,7 +63,7 @@ const colors_btn = ['#04B94A', '#04B94A', '#F0C312'];
         :key="index"
         :imageSrc="category.imageSrc"
         :name="category.name"
-        :amount="category.amount"
+        :product-count="category.productCount"
         :backgroundColor="colors_card[index % colors_card.length]"
       />
     </div>
@@ -71,7 +71,7 @@ const colors_btn = ['#04B94A', '#04B94A', '#F0C312'];
       <promotion
         v-for="(promotion, index) in promotions"
         :key="index"
-        :description="promotion.description"
+        :title="promotion.title"
         :imageSrc="promotion.imageSrc"
         :buttonText="promotion.btnText"
         :backgroundColor="colors_promo[index % colors_promo.length]"

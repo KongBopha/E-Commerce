@@ -1,8 +1,9 @@
 <template>
   <div class="packet" :style="{ backgroundColor: backgroundColor }">
     <div class="des1"> 
-      <p>{{ description }}</p>    
-      <ButtonCom :buttonText="buttonText" :backgroundColor="buttonColor" />
+      <p>{{ title }}</p>    
+      <ButtonCom :buttonText="buttonText" :backgroundColor="buttonColor" 
+      @click="shopNow()"/>
     </div>
     
     <img :src="imageSrc" class="image" />
@@ -13,12 +14,16 @@
 import ButtonCom from './buttonCom.vue';
 
 const props = defineProps({
-  description: String,
+  title: String,
   imageSrc: String,
   buttonText: String,
   backgroundColor: String,
   buttonColor: String,
 });
+function shopNow() {
+  alert("Let's shop: " + props.title);
+}
+  
 </script>
 <style scoped>
 .packet { 
