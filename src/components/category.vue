@@ -1,8 +1,8 @@
 <template>
   <div class="container" :style="{ backgroundColor: backgroundColor }">
-      <img :src="imageSrc" class="image" />
+      <img :src="image" class="image" />
       <span class="name">{{ name }}</span>
-      <span class="amount">{{ productCount }}</span>
+      <span class="amount">{{ productCount }} products</span>
   </div>
 </template>
 
@@ -10,12 +10,13 @@
 import { defineProps } from 'vue';
 
 const props = defineProps({
-  name: String,
-  productCount: String,
-  imageSrc: String,
-  backgroundColor: String,
+  name: String,  
+  productCount: Number, 
+  image: String,  
+  backgroundColor: String,  
 });
 </script>
+
 <style scoped>
 .container {
   display: flex;

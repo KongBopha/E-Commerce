@@ -1,12 +1,14 @@
 <template>
   <div class="packet" :style="{ backgroundColor: backgroundColor }">
-    <div class="des1"> 
-      <p>{{ title }}</p>    
-      <ButtonCom :buttonText="buttonText" :backgroundColor="buttonColor" 
-      @click="shopNow()"/>
+    <div class="des1">
+      <p>{{ title }}</p>
+      <ButtonCom
+        :buttonText="buttonText"
+        :backgroundColor="buttonColor"
+        @click="shopNow()"
+      />
     </div>
-    
-    <img :src="imageSrc" class="image" />
+    <img :src="image" class="image" />
   </div>
 </template>
 
@@ -14,16 +16,16 @@
 import ButtonCom from './buttonCom.vue';
 
 const props = defineProps({
-  title: String,
-  imageSrc: String,
-  buttonText: String,
-  backgroundColor: String,
-  buttonColor: String,
+  title: String,  
+  image: String,  
+  buttonText: String,  
+  backgroundColor: String,  
+  buttonColor: String,  
 });
+
 function shopNow() {
   alert("Let's shop: " + props.title);
 }
-  
 </script>
 <style scoped>
 .packet { 
@@ -56,4 +58,3 @@ p {
   margin-left: auto;  
 }
 </style>
-

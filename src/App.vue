@@ -1,70 +1,13 @@
-<script setup>
-import { RouterView } from 'vue-router';
-import category from './components/category.vue';
-import promotion from './components/promotion.vue';
-
-import hamImage from '@/assets/ham.png';
-import peachImage from '@/assets/peach.png';
-import kiwiImage from '@/assets/kiwi.png';
-import appleImage from '@/assets/apple.png';
-import snackImage from '@/assets/snack.png';
-import plumImage from '@/assets/plum.png';
-import tomatoImage from '@/assets/tomato.png';
-import headphonesImage from '@/assets/headphones.png';
-import coffeeImage from '@/assets/coffee.png';
-import orangeImage from '@/assets/orange.png';
-import onionImage from '@/assets/onion.png';
-import strawImage from '@/assets/straw.png';
-import oganicImage from '@/assets/oganic.png';
-
-const categories = [
-  { name: 'Coke & Milk', productCount: '14 items', imageSrc: hamImage },
-  { name: 'Peach', productCount: '17 items', imageSrc: peachImage },
-  { name: 'Organic Kiwi', productCount: '21 items', imageSrc: kiwiImage },
-  { name: 'Red Apple', productCount: '68 items', imageSrc: appleImage },
-  { name: 'Snack', productCount: '34 items', imageSrc: snackImage },
-  { name: 'Black Plum', productCount: '25 items', imageSrc: plumImage },
-  { name: 'Vegetables', productCount: '65 items', imageSrc: tomatoImage },
-  { name: 'Headphones', productCount: '33 items', imageSrc: headphonesImage },
-  { name: 'Cake & Milk', productCount: '54 items', imageSrc: coffeeImage },
-  { name: 'Orange', productCount: '63 items', imageSrc: orangeImage },
-];
-
-const promotions = [
-  {
-    title: "Everyday Fresh & Clean with Our Products",
-    btnText: "Show Now",
-    imageSrc: onionImage,
-  },
-  {
-    title: "Make your Breakfast Healthy and Easy",
-    btnText: "Show Now",
-    imageSrc: strawImage,
-  },
-  {
-    title: "The best Organic Products Online",
-    btnText: "Show Now",
-    imageSrc: oganicImage,
-  },
-];
-
-const colors_card = ['#D4FBD4', '#FFDDC1', '#D1E8E2', '#FFD3D3', '#FFF2C2',
-                    '#F8E3FE', '#FAE2E2', '#FFF2C2', '#FFD3D3', '#FFF2C2'];
-
-const colors_promo = ['#FFF2C2', '#FFD3D3', '#D1E8E2'];
-const colors_btn = ['#04B94A', '#04B94A', '#F0C312'];
-</script>
-
 <template>
   <main>
     <div class="category">
       <category
         v-for="(category, index) in categories"
         :key="index"
-        :imageSrc="category.imageSrc"
         :name="category.name"
-        :product-count="category.productCount"
-        :backgroundColor="colors_card[index % colors_card.length]"
+        :productCount="category.productCount"
+        :image="category.image"  
+        :backgroundColor="category.color"
       />
     </div>
     <div class="promotion">
@@ -72,15 +15,59 @@ const colors_btn = ['#04B94A', '#04B94A', '#F0C312'];
         v-for="(promotion, index) in promotions"
         :key="index"
         :title="promotion.title"
-        :imageSrc="promotion.imageSrc"
-        :buttonText="promotion.btnText"
-        :backgroundColor="colors_promo[index % colors_promo.length]"
-        :buttonColor="colors_btn[index % colors_btn.length]"
+        :image="promotion.image"
+        :buttonText="'Shop Now'"
+        :backgroundColor="promotion.color"
+        :buttonColor="promotion.buttonColor"
       />
     </div>
   </main>
-  <RouterView />
 </template>
+
+<script>
+import axios from "axios";
+import category from "./components/category.vue";
+import promotion from "./components/promotion.vue";
+
+export default {
+  components: {
+    category,
+    promotion,
+  },
+  data() {
+    return {
+      categories: [],
+      promotions: [],
+    };
+  },
+  mounted() {
+    this.fetchCategories();
+    this.fetchPromotions();
+  },
+  methods: {
+    fetchCategories() {
+      axios
+        .get("http://localhost:3000/api/categories")
+        .then((result) => {
+          this.categories = result.data;
+        })
+        .catch((error) => {
+          console.error("Error fetching categories:", error);
+        });
+    },
+    fetchPromotions() {
+      axios
+        .get("http://localhost:3000/api/promotions")
+        .then((result) => {
+          this.promotions = result.data;
+        })
+        .catch((error) => {
+          console.error("Error fetching promotions:", error);
+        });
+    },
+  },
+};
+</script>
 
 <style scoped>
 main {
