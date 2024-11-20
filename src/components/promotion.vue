@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-import ButtonCom from './buttonCom.vue';
+import ButtonCom from './buttons.vue';
 
 const props = defineProps({
   title: String,  

@@ -25,50 +25,50 @@
 </template>
 
 <script>
+import { onMounted } from 'vue';
 import axios from "axios";
 import category from "./components/category.vue";
 import promotion from "./components/promotion.vue";
+import { useProductStore } from './stores/productStore';
 
 export default {
+  name: 'App',
   components: {
     category,
     promotion,
   },
   data() {
     return {
-      categories: [],
-      promotions: [],
+      // categories: [],
+      // promotions: [],
+      currentGroupName: 'Group '
     };
   },
-  mounted() {
-    this.fetchCategories();
-    this.fetchPromotions();
+  setup() {
+    const productStore = useProductStore();
+    
+
+    // Fetch data on mount
+    onMounted(() => {
+      productStore.fetchCategoried();
+      productStore.fetchPromotions();
+      productStore.fetchGroups();
+      productStore.fetchProducts();
+    });
+
+    return {
+      productStore,
+    };
   },
-  methods: {
-    fetchCategories() {
-      axios
-        .get("http://localhost:3000/api/categories")
-        .then((result) => {
-          this.categories = result.data;
-        })
-        .catch((error) => {
-          console.error("Error fetching categories:", error);
-        });
-    },
-    fetchPromotions() {
-      axios
-        .get("http://localhost:3000/api/promotions")
-        .then((result) => {
-          this.promotions = result.data;
-        })
-        .catch((error) => {
-          console.error("Error fetching promotions:", error);
-        });
-    },
+  computed: {
+  categories() {
+    const productStore = useProductStore();
+    return productStore.getCategoriesByGroup(this.currentGroupName);
   },
+},
+
 };
 </script>
-
 <style scoped>
 main {
   margin: 0 auto; 
