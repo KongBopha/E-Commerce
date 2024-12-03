@@ -1,6 +1,10 @@
 <template>
   <main>
-    <div class="category">
+    <div class="container">
+      <div class="menu-store">
+      <menus :menuItems="store.groups"/>
+      </div>>
+      <div class="category">
       <category
         v-for="(category, index) in categories"
         :key="index"
@@ -21,58 +25,63 @@
         :buttonColor="promotion.buttonColor"
       />
     </div>
+    <menus :menuItems="store.groups"/>
+    <div class="product-store">
+    <product/>
+</div>
+    </div>
   </main>
 </template>
 
 <script>
-import { onMounted } from 'vue';
-import axios from "axios";
-import category from "./components/category.vue";
-import promotion from "./components/promotion.vue";
+
+import Category from './components/category.vue';
+import Promotion from './components/promotion.vue';
+import product from './components/product.vue';
+import menus from './components/menu_type.vue';
 import { useProductStore } from './stores/productStore';
+import { mapState } from 'pinia';
+import Product from './components/product.vue';
+
 
 export default {
   name: 'App',
   components: {
-    category,
-    promotion,
-  },
-  data() {
-    return {
-      // categories: [],
-      // promotions: [],
-      currentGroupName: 'Group '
-    };
+    Category,
+    Promotion,
+    menus,
+    product
   },
   setup() {
-    const productStore = useProductStore();
-    
-
-    // Fetch data on mount
-    onMounted(() => {
-      productStore.fetchCategoried();
-      productStore.fetchPromotions();
-      productStore.fetchGroups();
-      productStore.fetchProducts();
-    });
-
+    const store = useProductStore();
     return {
-      productStore,
+      store
     };
   },
-  computed: {
-  categories() {
-    const productStore = useProductStore();
-    return productStore.getCategoriesByGroup(this.currentGroupName);
-  },
-},
-
+  async mounted() {
+    await this.store.fetchCategories();
+    await this.store.fetchPromotions();
+    await this.store.fetchProducts();
+    await this.store.fetchGroups();
+    },
+    computed:{
+    ...mapState(useProductStore, {
+    categories: 'categories',
+    promotions: 'promotions',
+    products: 'products',  
+    groups: 'groups',
+}),
+    }
 };
 </script>
 <style scoped>
 main {
   margin: 0 auto; 
   justify-content: center; 
+  background-color: white;
+}
+.container{
+  flex-direction: column;
 }
 .category {
   display: flex;
