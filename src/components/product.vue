@@ -7,7 +7,7 @@
           {{ product.promotionAsPercentage }}% Off
         </div>
         <img :src="product.image" :alt="product.name" class="product-image" />
-        <div class="product-info">
+        <div class="product-info"> 
           <p class="brand">Hodo Foods</p>
           <h3 class="product-name">{{ product.name }}</h3>
           <p class="product-rating">⭐⭐⭐⭐ ({{ product.rating }}/5)</p>
