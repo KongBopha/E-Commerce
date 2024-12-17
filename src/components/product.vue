@@ -6,7 +6,9 @@
         <div class="product-label" v-if="product.promotionAsPercentage > 0">
           {{ product.promotionAsPercentage }}% Off
         </div>
-        <img :src="product.image" :alt="product.name" class="product-image" />
+        <router-link :to="{ name: 'product', params: { productId: product.id } }">
+         <img :src="product.image" :alt="product.name" class="product-image" />
+        </router-link>
         <div class="product-info"> 
           <p class="brand">Hodo Foods</p>
           <h3 class="product-name">{{ product.name }}</h3>
@@ -40,8 +42,14 @@ import { mapState } from "pinia";
 import { useProductStore } from "@/stores/productStore";
 
 export default {
+  data(){
+    return {
+       
+    };
+  },
+  
   name: "ProductList",
-  computed: {
+  computed: { 
     ...mapState(useProductStore, {
       products: "products",
     }),
@@ -57,7 +65,7 @@ export default {
         product.quantity = 0;  
       }
     },
-  
+   
     increaseQuantity(product) {
       if(product.quantity<=product.instock){
         product.quantity++;

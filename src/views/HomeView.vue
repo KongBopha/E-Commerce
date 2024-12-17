@@ -1,9 +1,11 @@
 <template>
     <main>
       <div class="container">
-        <div class="menu-store">
-        <menus :menuItems="store.groups"/>
-        </div>>
+        <search-box/>
+        <div class="menu-item">
+          <menu-item/>
+          <showcase/>
+        </div>
         <div class="category">
         <category
           v-for="(category, index) in categories"
@@ -12,6 +14,7 @@
           :productCount="category.productCount"
           :image="category.image"  
           :backgroundColor="category.color"
+          :id="category.id"
         />
       </div>
       <div class="promotion">
@@ -32,48 +35,37 @@
       </div>
     </main>
     
-  </template>
-  
-  <script>
-  
+  </template>    
+<script setup>
+  import { useProductStore } from '@/stores/productStore';
+  import { onMounted, computed } from 'vue';
   import Category from '@/components/category.vue';
   import product from '@/components/product.vue';
   import menus from '@/components/menu_type.vue';
-  import { useProductStore } from '@/stores/productStore';
-  import { mapState } from 'pinia';
   import Promotion from '@/components/promotion.vue';
+  import MenuItem from '@/components/MenuItem.vue';
+  import SearchBox from '@/components/SearchBox.vue';
+  import Showcase from '@/components/Showcase.vue';
   
-  
-  export default {
-    name: 'App',
-    components: {
-      Category,
-      Promotion,
-      menus,
-      product
-    },
-    setup() {
-      const store = useProductStore();
-      return {
-        store
-      };
-    },
-    async mounted() {
-      await this.store.fetchCategories();
-      await this.store.fetchPromotions();
-      await this.store.fetchProducts();
-      await this.store.fetchGroups();
-      },
-      computed:{
-      ...mapState(useProductStore, {
-      categories: 'categories',
-      promotions: 'promotions',
-      products: 'products',  
-      groups: 'groups',
-  }),
-      }
-  };
-  </script>
+
+// Access the store
+const store = useProductStore();
+
+// Fetch data on mount
+onMounted(async () => {
+  await store.fetchCategories();
+  await store.fetchPromotions();
+  await store.fetchProducts();
+  await store.fetchGroups();
+});
+
+const categories = computed(() => store.categories);
+const promotions = computed(() => store.promotions);
+const products = computed(() => store.products);
+const group = computed(() => store.groups);
+
+</script>
+
   <style scoped>
   main {
     margin: 0 auto; 

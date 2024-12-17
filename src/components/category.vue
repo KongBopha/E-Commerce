@@ -1,8 +1,10 @@
 <template>
   <div class="container" :style="{ backgroundColor: backgroundColor }">
-      <img :src="image" class="image" />
+    <router-link :to="{ name: 'category', params: { categoryId: id } }">
+      <img :src="image" class="image" alt="Category Image" /></router-link>
       <span class="name">{{ name }}</span>
       <span class="amount">{{ productCount }} products</span>
+   
   </div>
 </template>
 
@@ -14,6 +16,7 @@ const props = defineProps({
   productCount: Number, 
   image: String,  
   backgroundColor: String,  
+  id: String  
 });
 </script>
 
