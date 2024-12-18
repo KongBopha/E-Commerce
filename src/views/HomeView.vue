@@ -6,6 +6,10 @@
           <menu-item/>
           <showcase/>
         </div>
+        <div class="menu-content">
+          <span> Features Categories</span>
+          <menus :menuItems="store.groups"/>
+        </div>
         <div class="category">
         <category
           v-for="(category, index) in categories"
@@ -28,7 +32,10 @@
           :buttonColor="promotion.buttonColor"
         />
       </div>
-      <menus :menuItems="store.groups"/>
+      <div class="menu-content">
+        <span>Popular Products</span>
+        <menus :menuItems="store.groups"/>
+      </div>
       <div class="product-store">
       <product/>
   </div>
@@ -82,5 +89,16 @@ const group = computed(() => store.groups);
     display: flex;
      
     gap: 20px;
+  }
+  .menu-content{
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+  span{
+    color:black ;
+    font-weight: bold;
+    font-size: large;
+
   }
   </style>
