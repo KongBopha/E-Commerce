@@ -1,12 +1,12 @@
 <template>
   <div class="container">
-  <router-link :to="{name:'homepage'}"></router-link>
+    <router-view />
   </div>
-  <router-view/>
 </template>
 
 <script>
+export default {
+  name: "App",
+};
 </script>
 
-<style scoped>
-</style>
